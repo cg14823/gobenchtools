@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/cg14823/gobenchtools"
 	"io/ioutil"
 	"os"
+
+	"github.com/cg14823/gobenchtools"
 )
 
 func main() {

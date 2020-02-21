@@ -16,14 +16,15 @@ const DefaultFileMode = 0660
 type ParsedBench map[string][]Benchmark
 
 type Benchmark struct {
-	Name    string `json:"name"`
-	N       uint64 `json:"n"`
+	ID      int     `json:"id,omitempty"`
+	Commit  string  `json:"commit,omitempty"`
+	Name    string  `json:"name,omitempty"`
+	N       uint64  `json:"n"`
 	NSPerOp float64 `json:"ns_per_op"`
 }
 
 var PkgNameExp = regexp.MustCompile(`^pkg: (?P<pkgName>[0-9A-Za-z_\-/.]+)`)
 var BenchMarkResultExp = regexp.MustCompile(`^(?P<benchName>[0-9A-Za-z_\-/.]+)\s+(?P<n>\d+)\s+(?P<nsPerOp>\d+(?:\.\d+)?) ns/op`)
-
 
 func ParseFile(fileIn string) (ParsedBench, error) {
 	f, err := os.OpenFile(fileIn, os.O_RDONLY, DefaultFileMode)
@@ -85,3 +86,6 @@ func ParseFile(fileIn string) (ParsedBench, error) {
 
 	return parsed, nil
 }
+
+// HistoryPkgBench map package to a map of benchmark name to benchmark results
+type HistoricPkgBench map[string]map[string][]Benchmark

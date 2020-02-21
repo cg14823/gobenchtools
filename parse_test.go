@@ -34,18 +34,18 @@ func TestParseFile(t *testing.T) {
 
 	tests := []testCase{
 		{
-			name: "one-package",
+			name:  "one-package",
 			input: "goos: darwin\ngoarch: amd64\npkg: github.com/user/repo/package\nBenchmarkUnpackMetaData-12      35928573                28.1 ns/op\nBenchmark_Set/sqlite-50b-12        83124             15066 ns/op\nPASS\nok      github.com/user/repo/package     230.051s",
 			expectedOut: ParsedBench{
 				"github.com/user/repo/package": []Benchmark{
 					{
-						Name: "BenchmarkUnpackMetaData-12",
-						N:35928573,
+						Name:    "BenchmarkUnpackMetaData-12",
+						N:       35928573,
 						NSPerOp: 28.1,
 					},
 					{
-						Name: "Benchmark_Set/sqlite-50b-12",
-						N: 83124,
+						Name:    "Benchmark_Set/sqlite-50b-12",
+						N:       83124,
 						NSPerOp: 15066,
 					},
 				},
