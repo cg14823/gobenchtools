@@ -185,11 +185,12 @@ func runChronos(options *chronosOptions) (gobenchtools.HistoricPkgBench, error) 
 
 	defer checkoutCommit(options.repo, commit)
 
-	if len(options.commitList) == 0 {
+	if len(options.commitList) != 0 {
 		getBenchCommitList(options)
+	} else {
+		getBenchStepped(options)
 	}
 
-	getBenchStepped(options)
 	return parseBenchmarkOutputs(options.tempOutputDir)
 }
 
@@ -214,10 +215,10 @@ func getBenchStepped(options *chronosOptions) {
 	}
 
 	commitToCheckout := "HEAD~" + strconv.Itoa(options.step)
-	for i := 1; i < options.numOfSteps; i++ {
-		err = checkoutAndBench(commitToCheckout, options, false, i)
+	for i := 0; i < options.numOfSteps; i++ {
+		err = checkoutAndBench(commitToCheckout, options, false, i+1)
 		if err != nil {
-			fmt.Println("Failed to benchmark on step: ", i, err)
+			fmt.Println("Failed to benchmark on step: ", i+1, err)
 		}
 	}
 }
