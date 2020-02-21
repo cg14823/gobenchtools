@@ -162,7 +162,7 @@ func writeOutputAsCSV(outFile string, parsed gobenchtools.HistoricPkgBench) erro
 					pkgName,
 					bb.Commit,
 					name,
-					strconv.FormatUint(bb.N, 64),
+					strconv.FormatUint(bb.N, 10),
 					strconv.FormatFloat(bb.NSPerOp, 'f', -1, 64),
 				})
 				if err != nil {
@@ -213,7 +213,7 @@ func getBenchStepped(options *chronosOptions) {
 		fmt.Println("Failed to benchmark on step: ", 0, err)
 	}
 
-	commitToCheckout := "HEAD^" + strconv.Itoa(options.step)
+	commitToCheckout := "HEAD~" + strconv.Itoa(options.step)
 	for i := 1; i < options.numOfSteps; i++ {
 		err = checkoutAndBench(commitToCheckout, options, false, i)
 		if err != nil {
@@ -290,7 +290,7 @@ func parseBenchmarkOutputs(dir string) (gobenchtools.HistoricPkgBench, error) {
 				}
 
 				historic[pkgName][b.Name] = append(historic[pkgName][b.Name], gobenchtools.Benchmark{
-					ID:      n,
+					ID:      count,
 					Commit:  commitHash,
 					N:       b.N,
 					NSPerOp: b.NSPerOp,
