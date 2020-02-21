@@ -271,7 +271,6 @@ func parseBenchmarkOutputs(dir string) (gobenchtools.HistoricPkgBench, error) {
 			continue
 		}
 
-		fmt.Println("Parsing file: ", filepath.Join(dir, f.Name()))
 		parsed, err := gobenchtools.ParseFile(filepath.Join(dir, f.Name()))
 		if err != nil {
 			fmt.Printf("Could not parse output for file %s: %s\n", f.Name(), err.Error())
